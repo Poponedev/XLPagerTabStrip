@@ -50,7 +50,7 @@ open class ButtonBarView: UICollectionView {
         bar.layer.zPosition = 9999
         return bar
     }()
-
+    
     internal var selectedBarHeight: CGFloat = 4 {
         didSet {
             updateSelectedBarYPosition()
@@ -60,13 +60,28 @@ open class ButtonBarView: UICollectionView {
     var selectedBarAlignment: SelectedBarAlignment = .center
     var selectedIndex = 0
 
+    open lazy var bottomUnderlayBar: UIView = { [unowned self] in
+        return UIView(frame: CGRect(x: 0, y: self.frame.size.height - CGFloat(self.bottomUnderlayBarHeight), width: self.frame.size.width, height: CGFloat(self.selectedBarHeight)))
+    }()
+    
+    internal var bottomUnderlayBarHeight: CGFloat = 4 {
+        didSet {
+            var newFrame = bottomUnderlayBar.frame
+            newFrame.origin.y = self.frame.size.height - bottomUnderlayBarHeight
+            newFrame.size.height = bottomUnderlayBarHeight
+            bottomUnderlayBar.frame = newFrame
+        }
+    }
+
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        addSubview(bottomUnderlayBar)
         addSubview(selectedBar)
     }
 
     public override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
+        addSubview(bottomUnderlayBar)
         addSubview(selectedBar)
     }
 

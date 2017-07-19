@@ -36,7 +36,8 @@ class InstagramExampleViewController: ButtonBarPagerTabStripViewController {
         settings.style.buttonBarItemBackgroundColor = .white
         settings.style.selectedBarBackgroundColor = blueInstagramColor
         settings.style.buttonBarItemFont = .boldSystemFont(ofSize: 14)
-        settings.style.selectedBarHeight = 2.0
+        settings.style.selectedBarHeight = 1.0
+        settings.style.bottomUnderlayBarHeight = 0.5
         settings.style.buttonBarMinimumLineSpacing = 0
         settings.style.buttonBarItemTitleColor = .black
         settings.style.buttonBarItemsShouldFillAvailableWidth = true

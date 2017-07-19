@@ -48,6 +48,8 @@ public struct ButtonBarPagerTabStripSettings {
         public var buttonBarLeftContentInset: CGFloat?
         public var buttonBarRightContentInset: CGFloat?
 
+        public var bottomUnderlayBarBackgroundColor = UIColor.lightGray
+        public var bottomUnderlayBarHeight: CGFloat = 5
         public var selectedBarBackgroundColor = UIColor.black
         public var selectedBarHeight: CGFloat = 5
         public var selectedBarVerticalAlignment: SelectedBarVerticalAlignment = .bottom
@@ -150,6 +152,9 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
         buttonBarView.selectedBarHeight = settings.style.selectedBarHeight
         buttonBarView.selectedBarVerticalAlignment = settings.style.selectedBarVerticalAlignment
 
+        buttonBarView.bottomUnderlayBar.backgroundColor = settings.style.bottomUnderlayBarBackgroundColor
+        buttonBarView.bottomUnderlayBarHeight = settings.style.bottomUnderlayBarHeight
+        
         // register button bar item cell
         switch buttonBarItemSpec! {
         case .nibFile(let nibName, let bundle, _):
