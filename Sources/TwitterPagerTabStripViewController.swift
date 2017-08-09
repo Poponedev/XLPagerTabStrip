@@ -84,6 +84,10 @@ open class TwitterPagerTabStripViewController: PagerTabStripViewController, Page
 
     // MARK: - PagerTabStripDelegate
 
+    open func updateIndicator(for viewController: PagerTabStripViewController, didSelectTab index: Int) {
+        // nothing to do
+    }
+
     open func updateIndicator(for viewController: PagerTabStripViewController, fromIndex: Int, toIndex: Int, withProgressPercentage progressPercentage: CGFloat, indexWasChanged: Bool) {
 
         // move indicator scroll view

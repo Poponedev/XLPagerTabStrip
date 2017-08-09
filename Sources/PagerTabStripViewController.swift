@@ -34,6 +34,7 @@ public protocol IndicatorInfoProvider {
 
 public protocol PagerTabStripDelegate: class {
 
+    func updateIndicator(for viewController: PagerTabStripViewController, didSelectTab index: Int)
     func updateIndicator(for viewController: PagerTabStripViewController, fromIndex: Int, toIndex: Int)
 }
 
@@ -169,6 +170,8 @@ open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
             (navigationController?.view ?? view).isUserInteractionEnabled = !animated
             containerView.setContentOffset(CGPoint(x: pageOffsetForChild(at: index), y: 0), animated: animated)
         }
+        
+        delegate?.updateIndicator(for: self, didSelectTab: index)
     }
 
     open func moveTo(viewController: UIViewController, animated: Bool = true) {
@@ -322,6 +325,10 @@ open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
         }
     }
 
+    open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        delegate?.updateIndicator(for: self, didSelectTab: currentIndex)
+    }
+    
     // MARK: - Orientation
 
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
