@@ -72,6 +72,7 @@ public struct ButtonBarPagerTabStripSettings {
     }
 
     public var style = Style()
+    public var initialTabIndex = 0
 }
 
 open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, PagerTabStripDataSource, PagerTabStripIsProgressiveDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
@@ -102,6 +103,10 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
     }
 
     open override func viewDidLoad() {
+        
+        currentIndex = settings.initialTabIndex
+        preCurrentIndex = settings.initialTabIndex
+
         super.viewDidLoad()
         
         var bundle = Bundle(for: ButtonBarViewCell.self)
