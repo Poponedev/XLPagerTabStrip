@@ -129,13 +129,14 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
                 let flowLayout = UICollectionViewFlowLayout()
                 flowLayout.scrollDirection = .horizontal
                 let buttonBarHeight = settings.style.buttonBarHeight ?? 44
-                let buttonBar = ButtonBarView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: buttonBarHeight), collectionViewLayout: flowLayout)
+                let buttonBar = ButtonBarView(frame: CGRect(x: containerView.frame.origin.x, y: containerView.frame.origin.y,
+                                                            width: containerView.frame.size.width, height: buttonBarHeight), collectionViewLayout: flowLayout)
                 buttonBar.backgroundColor = .orange
                 buttonBar.selectedBar.backgroundColor = .black
                 buttonBar.autoresizingMask = .flexibleWidth
                 var newContainerViewFrame = containerView.frame
-                newContainerViewFrame.origin.y = buttonBarHeight
-                newContainerViewFrame.size.height = containerView.frame.size.height - (buttonBarHeight - containerView.frame.origin.y)
+                newContainerViewFrame.origin.y = containerView.frame.origin.y + buttonBarHeight
+                newContainerViewFrame.size.height = containerView.frame.size.height - buttonBarHeight
                 containerView.frame = newContainerViewFrame
                 return buttonBar
             }()
@@ -267,6 +268,17 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
         }
     }
 
+    open func updateContainerViewFrame(_ frame: CGRect) {
+        let buttonBarHeight = buttonBarView.frame.size.height
+        let barFrame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: buttonBarHeight)
+        var newContainerViewFrame = frame
+        newContainerViewFrame.origin.y = frame.origin.y + buttonBarHeight
+        newContainerViewFrame.size.height = frame.size.height - buttonBarHeight
+        containerView.frame = newContainerViewFrame
+        buttonBarView.frame = barFrame
+        view.layoutIfNeeded()
+    }
+    
     private func cellForItems(at indexPaths: [IndexPath], reloadIfNotVisible reload: Bool = true) -> [ButtonBarViewCell?] {
         let cells = indexPaths.map { buttonBarView.cellForItem(at: $0) as? ButtonBarViewCell }
 
